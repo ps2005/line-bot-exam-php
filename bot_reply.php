@@ -6,8 +6,9 @@ $idPush = 'Ub6cb7cd9bd673af449ed8a304f7eaa4e';
 
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($access_token);
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello world');
-$response = $bot->pushMessage('Ub6cb7cd9bd673af449ed8a304f7eaa4e', $textMessageBuilder);
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello a new world');
+//$response = $bot->pushMessage('Ub6cb7cd9bd673af449ed8a304f7eaa4e', $textMessageBuilder);
+$response = $bot->pushMessage($idPush, $textMessageBuilder);
 
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 ?>
