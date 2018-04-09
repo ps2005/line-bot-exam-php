@@ -1,5 +1,5 @@
 <?php
-//require('vendor/autoload.php');
+require('vendor/autoload.php');
 require("phpMQTT.php");
 
 $server = "m13.cloudmqtt.com";     // change if necessary
@@ -14,7 +14,7 @@ $message = "Hello CloudMQTT2!";
 //$mqtt = new phpMQTT($server, $port, $client_id);
 //$mqtt = new phpMQTT($server, $port, "ClientID".rand());
 $mqtt = new bluerhinos\phpMQTT($server, $port, "ClientID".rand());
-/*
+
 if ($mqtt->connect(true, NULL, $username, $password)) {
     $mqtt->publish($topic, $message, 0);
     echo "Published message: " . $message;
@@ -22,5 +22,5 @@ if ($mqtt->connect(true, NULL, $username, $password)) {
 }else{
     echo "Fail or time out<br />";
 }
-*/
-echo $message;
+
+//echo $message;
