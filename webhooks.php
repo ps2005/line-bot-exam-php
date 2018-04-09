@@ -4,13 +4,23 @@ require "vendor/autoload.php";
 require_once('vendor/linecorp/line-bot-sdk/line-bot-sdk-tiny/LINEBotTiny.php');
 require("phpMQTT.php");
 
-$url = parse_url(getenv('m13.cloudmqtt.com'));
-//$topic = substr($url['path'], 1);
-$client_id = "phpMQTT-publisher";
+$server = "m13.cloudmqtt.com";     // change if necessary
+$port = 12427;                     // change if necessary
+$username = "view";                   // set your username
+$password = "1234";                   // set your password
+$client_id = "phpMQTT-publisher"; // make sure this is unique for connecting to sever - you could use uniqid()
+$topic="/IOT";
+$message = "Hello CloudMQTT2!";
 
-//$mqtt = new phpMQTT("m13.cloudmqtt.com", 12427, "phpMQTT Pub Example"); //เปลี่ยน www.yourmqttserver.com ไปที่ mqtt server ที่เราสมัครไว้นะครับ
+/*
+$mqtt = new bluerhinos\phpMQTT($server, $port, "ClientID".rand());
+if ($mqtt->connect(true, NULL, $username, $password)) {
+    $mqtt->publish($topic, $message, 0);
+    echo "Published message: " . $message;
+    $mqtt->close();
+*/
 
-$mqtt = new Bluerhinos\phpMQTT($url['host'], $url['12427'], $client_id);
+$mqtt = new bluerhinos\phpMQTT($server, $port, "ClientID".rand());
 $access_token = 'deQ0R28QTXVYrTOwfnh+BOF0FvGIxSHVG3k4fIe2cLld9WZVs0UvUqdk0ZEC54PSjxjQRthwmhRqbx9hwicXEDn8itwyyAlMkGmogPmYHJsL1N6jGou+oMrlMXikTzHKDU3c7F+gGN1+tAzbi6zK1AdB04t89/1O/w1cDnyilFU=';
 
 // Get POST body content
@@ -31,9 +41,8 @@ if (!is_null($events['events'])) {
 			}
 			
 			if (preg_match("/เปิดทีวี/", $text)) {     //หากในแชตที่ส่งมามีคำว่า เปิดทีวี ก็ให้ส่ง mqtt ไปแจ้ง server เราครับ
-				if ($mqtt->connect(true, NULL, $url['view'], $url['1234'])) {
-				    $mqtt->publish("/IOT", "LEDON", 0);
-				    //$mqtt->publish($topic, $message, 0);
+				if ($mqtt->connect(true, NULL, $username, $password)) {
+				    $mqtt->publish($topic, "LEDON", 0);
 				    //echo "Published message: " . $message;
 				    $mqtt->close();
 				}				
@@ -41,9 +50,8 @@ if (!is_null($events['events'])) {
 			}
 			
 			if (preg_match("/ปิดทีวี/", $text)) {     //หากในแชตที่ส่งมามีคำว่า เปิดทีวี ก็ให้ส่ง mqtt ไปแจ้ง server เราครับ
-				if ($mqtt->connect(true, NULL, $url['view'], $url['1234'])) {
-				    $mqtt->publish("/IOT", "LEDOFF", 0);
-				    //$mqtt->publish($topic, $message, 0);
+				if ($mqtt->connect(true, NULL, $username, $password)) {
+				    $mqtt->publish($topic, "LEDOFF", 0);
 				    //echo "Published message: " . $message;
 				    $mqtt->close();
 				}
