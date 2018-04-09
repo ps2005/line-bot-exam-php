@@ -1,6 +1,6 @@
 <?php
 require('vendor/autoload.php');
-require("phpMQTT.php");
+require("../phpMQTT.php");
 
 $server = "m13.cloudmqtt.com";     // change if necessary
 $port = 12427;                     // change if necessary
