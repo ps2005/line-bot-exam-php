@@ -8,17 +8,8 @@ $server = "m13.cloudmqtt.com";     // change if necessary
 $port = 12427;                     // change if necessary
 $username = "view";                   // set your username
 $password = "1234";                   // set your password
-$client_id = "phpMQTT-publisher"; // make sure this is unique for connecting to sever - you could use uniqid()
+//$client_id = "phpMQTT-publisher"; // make sure this is unique for connecting to sever - you could use uniqid()
 $topic="/IOT";
-$message = "Hello CloudMQTT2!";
-
-/*
-$mqtt = new bluerhinos\phpMQTT($server, $port, "ClientID".rand());
-if ($mqtt->connect(true, NULL, $username, $password)) {
-    $mqtt->publish($topic, $message, 0);
-    echo "Published message: " . $message;
-    $mqtt->close();
-*/
 
 $mqtt = new bluerhinos\phpMQTT($server, $port, "ClientID".rand());
 $access_token = 'deQ0R28QTXVYrTOwfnh+BOF0FvGIxSHVG3k4fIe2cLld9WZVs0UvUqdk0ZEC54PSjxjQRthwmhRqbx9hwicXEDn8itwyyAlMkGmogPmYHJsL1N6jGou+oMrlMXikTzHKDU3c7F+gGN1+tAzbi6zK1AdB04t89/1O/w1cDnyilFU=';
@@ -35,7 +26,7 @@ if (!is_null($events['events'])) {
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			$text = $event['message']['text'];			
 			if (preg_match("/hello/", $text)) {
-				$text = "มีอะไรให้จ่าวิสรับใช้ครับ";
+				$text = "มีอะไรให้หนูรับใช้ค่ะ";
 			} 
 			
 			if (preg_match("/เปิดทีวี/", $text)) {     //หากในแชตที่ส่งมามีคำว่า เปิดทีวี ก็ให้ส่ง mqtt ไปแจ้ง server เราครับ
@@ -44,19 +35,18 @@ if (!is_null($events['events'])) {
 				    //echo "Published message: " . $message;
 				    $mqtt->close();
 				}				
-				$text = "เปิดทีวีให้แล้วคร้าบบบบ";
+				$text = "เปิดทีวีให้แล้วจ้า";
 			}
-			
-			if (preg_match("/ปิดทีวี/", $text)) {     //หากในแชตที่ส่งมามีคำว่า เปิดทีวี ก็ให้ส่ง mqtt ไปแจ้ง server เราครับ
+			if (preg_match("/ปิดทีวี/", $text) and !preg_match("/เปิดทีวี/", $text)) {
 				if ($mqtt->connect(true, NULL, $username, $password)) {
 				    $mqtt->publish($topic, "LEDOFF", 0);
 				    //echo "Published message: " . $message;
 				    $mqtt->close();
 				}
-				$text = "ปิดทีวีให้แล้วคร้าบบบบ";
+				$text = "ปิดทีวีให้แล้วจ้า";
 			}	
 			else {
-				$text = "ผิดคำสั่งครับ";
+				$text = "ไม่มีคำสั่งนี้ค่ะ";
 			}
 			// Get text sent
 			//$text = $event['source']['userId'];
