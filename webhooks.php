@@ -4,7 +4,13 @@ require "vendor/autoload.php";
 require_once('vendor/linecorp/line-bot-sdk/line-bot-sdk-tiny/LINEBotTiny.php');
 require("phpMQTT.php");
 
-$mqtt = new phpMQTT("m13.cloudmqtt.com", 12427, "phpMQTT Pub Example"); //เปลี่ยน www.yourmqttserver.com ไปที่ mqtt server ที่เราสมัครไว้นะครับ
+$url = parse_url(getenv('m13.cloudmqtt.com'));
+//$topic = substr($url['path'], 1);
+$client_id = "phpMQTT-publisher";
+
+//$mqtt = new phpMQTT("m13.cloudmqtt.com", 12427, "phpMQTT Pub Example"); //เปลี่ยน www.yourmqttserver.com ไปที่ mqtt server ที่เราสมัครไว้นะครับ
+
+$mqtt = new Bluerhinos\phpMQTT($url['host'], $url['12427'], $client_id);
 $access_token = 'deQ0R28QTXVYrTOwfnh+BOF0FvGIxSHVG3k4fIe2cLld9WZVs0UvUqdk0ZEC54PSjxjQRthwmhRqbx9hwicXEDn8itwyyAlMkGmogPmYHJsL1N6jGou+oMrlMXikTzHKDU3c7F+gGN1+tAzbi6zK1AdB04t89/1O/w1cDnyilFU=';
 
 // Get POST body content
@@ -25,17 +31,21 @@ if (!is_null($events['events'])) {
 			}
 			
 			if (preg_match("/เปิดทีวี/", $text)) {     //หากในแชตที่ส่งมามีคำว่า เปิดทีวี ก็ให้ส่ง mqtt ไปแจ้ง server เราครับ
-				if ($mqtt->connect()) {
-				$mqtt->publish("/IOT","LEDON"); // ตัวอย่างคำสั่งเปิดทีวีที่จะส่งไปยัง mqtt server
-				$mqtt->close();
-				}
+				if ($mqtt->connect(true, NULL, $url['view'], $url['1234'])) {
+				    $mqtt->publish("/IOT", "LEDON", 0);
+				    //$mqtt->publish($topic, $message, 0);
+				    //echo "Published message: " . $message;
+				    $mqtt->close();
+				}				
 				$text = "เปิดทีวีให้แล้วคร้าบบบบ";
 			}
 			
 			if (preg_match("/ปิดทีวี/", $text)) {     //หากในแชตที่ส่งมามีคำว่า เปิดทีวี ก็ให้ส่ง mqtt ไปแจ้ง server เราครับ
-				if ($mqtt->connect()) {
-				$mqtt->publish("/IOT","LEDOFF"); // ตัวอย่างคำสั่งเปิดทีวีที่จะส่งไปยัง mqtt server
-				$mqtt->close();
+				if ($mqtt->connect(true, NULL, $url['view'], $url['1234'])) {
+				    $mqtt->publish("/IOT", "LEDOFF", 0);
+				    //$mqtt->publish($topic, $message, 0);
+				    //echo "Published message: " . $message;
+				    $mqtt->close();
 				}
 				$text = "ปิดทีวีให้แล้วคร้าบบบบ";
 			}			
