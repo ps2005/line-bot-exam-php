@@ -12,7 +12,7 @@ $topic="/IOT";
 $message = "Hello CloudMQTT2!";
 
 //$mqtt = new phpMQTT($server, $port, $client_id);
-$mqtt = new phpMQTT($server, $port, "ClientID".rand());
+//$mqtt = new phpMQTT($server, $port, "ClientID".rand());
 //$mqtt = new bluerhinos\phpMQTT($host, $port, "ClientID".rand());
 /*
 if ($mqtt->connect(true, NULL, $username, $password)) {
