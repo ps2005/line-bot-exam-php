@@ -36,9 +36,7 @@ if (!is_null($events['events'])) {
 			$text = $event['message']['text'];			
 			if (preg_match("/hello/", $text)) {
 				$text = "มีอะไรให้จ่าวิสรับใช้ครับ";
-			} else {
-				$text = "ผิดคำสั่งครับ";
-			}
+			} 
 			
 			if (preg_match("/เปิดทีวี/", $text)) {     //หากในแชตที่ส่งมามีคำว่า เปิดทีวี ก็ให้ส่ง mqtt ไปแจ้ง server เราครับ
 				if ($mqtt->connect(true, NULL, $username, $password)) {
@@ -56,7 +54,10 @@ if (!is_null($events['events'])) {
 				    $mqtt->close();
 				}
 				$text = "ปิดทีวีให้แล้วคร้าบบบบ";
-			}			
+			}	
+			else {
+				$text = "ผิดคำสั่งครับ";
+			}
 			// Get text sent
 			//$text = $event['source']['userId'];
 			
