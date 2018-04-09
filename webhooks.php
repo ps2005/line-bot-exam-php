@@ -15,8 +15,14 @@ if (!is_null($events['events'])) {
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+			$text = $event->message->text;
+			if (preg_match(“/hello/”, $text)) {
+				$text = “มีอะไรให้จ่าวิสรับใช้ครับ”;
+			}
+			
 			// Get text sent
-			$text = $event['source']['userId'];
+			//$text = $event['source']['userId'];
+			
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
