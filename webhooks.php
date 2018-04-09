@@ -2,6 +2,7 @@
 
 require "vendor/autoload.php";
 require_once('vendor/linecorp/line-bot-sdk/line-bot-sdk-tiny/LINEBotTiny.php');
+require(“phpMQTT.php”);
 
 $access_token = 'deQ0R28QTXVYrTOwfnh+BOF0FvGIxSHVG3k4fIe2cLld9WZVs0UvUqdk0ZEC54PSjxjQRthwmhRqbx9hwicXEDn8itwyyAlMkGmogPmYHJsL1N6jGou+oMrlMXikTzHKDU3c7F+gGN1+tAzbi6zK1AdB04t89/1O/w1cDnyilFU=';
 
@@ -22,6 +23,21 @@ if (!is_null($events['events'])) {
 				$text = "ผิดคำสั่งครับ";
 			}
 			
+			if (preg_match("/เปิดทีวี/", $text)) {     //หากในแชตที่ส่งมามีคำว่า เปิดทีวี ก็ให้ส่ง mqtt ไปแจ้ง server เราครับ
+				if ($mqtt->connect()) {
+				$mqtt->publish("/IOT","LEDON"); // ตัวอย่างคำสั่งเปิดทีวีที่จะส่งไปยัง mqtt server
+				$mqtt->close();
+				}
+				$text = "เปิดทีวีให้แล้วคร้าบบบบ";
+			}
+			
+			if (preg_match("/ปิดทีวี/", $text)) {     //หากในแชตที่ส่งมามีคำว่า เปิดทีวี ก็ให้ส่ง mqtt ไปแจ้ง server เราครับ
+				if ($mqtt->connect()) {
+				$mqtt->publish("/IOT","LEDOFF"); // ตัวอย่างคำสั่งเปิดทีวีที่จะส่งไปยัง mqtt server
+				$mqtt->close();
+				}
+				$text = "ปิดทีวีให้แล้วคร้าบบบบ";
+			}			
 			// Get text sent
 			//$text = $event['source']['userId'];
 			
