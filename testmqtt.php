@@ -11,7 +11,9 @@ $client_id = "phpMQTT-publisher"; // make sure this is unique for connecting to 
 $topic="/IOT";
 $message = "Hello CloudMQTT!";
 
-$mqtt = new phpMQTT($server, $port, $client_id);
+//$mqtt = new phpMQTT($server, $port, $client_id);
+$mqtt = new bluerhinos\phpMQTT($host, $port, "ClientID".rand());
+
 if ($mqtt->connect(true, NULL, $username, $password)) {
     $mqtt->publish($topic, $message, 0);
     echo "Published message: " . $message;
