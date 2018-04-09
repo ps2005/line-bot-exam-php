@@ -1,6 +1,6 @@
 <?php
-require('vendor/autoload.php');
-require("../phpMQTT.php");
+//require('vendor/autoload.php');
+//require("../phpMQTT.php");
 
 $server = "m13.cloudmqtt.com";     // change if necessary
 $port = 12427;                     // change if necessary
@@ -22,4 +22,4 @@ if ($mqtt->connect(true, NULL, $username, $password)) {
     echo "Fail or time out<br />";
 }
 */
-echo "test";
+echo $message;
