@@ -16,8 +16,10 @@ if (!is_null($events['events'])) {
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			$text = $event->message->text;
-			if (preg_match(“/hello/”, $text)) {
-				$text = “มีอะไรให้จ่าวิสรับใช้ครับ”;
+			if (preg_match("/hello/", $text)) {
+				$text = "มีอะไรให้จ่าวิสรับใช้ครับ";
+			} else {
+				$text = "ผิดคำสั่งครับ";
 			}
 			
 			// Get text sent
