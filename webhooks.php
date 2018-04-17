@@ -54,7 +54,7 @@ if(isset($res['events']) && !is_null($res['events'])){
  if($item['type'] == 'message'){
  switch($item['message']['type']){
  case 'text':
-   $packet = posttext($item['replyToken'],"dddd");
+   $packet = posttext($item['replyToken'],$item['message']['text']);
    postMessage($access_token,$packet,$urlReply);
 break;
 case 'image':
@@ -72,7 +72,7 @@ break;
 break;
  case 'sticker':
  $packet = getSticker($item['replyToken']);
- postMessage($token,$packet,$urlReply);
+ postMessage($access_token,$packet,$urlReply);
 
  break;
 
@@ -195,7 +195,7 @@ $messages = [
 
  $packet = array(
  'replyToken' => $replyToken,
- 'messages' => array($message),
+ 'messages' => array($messages),
  );
  return $packet;	
 	
