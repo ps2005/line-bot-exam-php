@@ -58,24 +58,22 @@ if(isset($res['events']) && !is_null($res['events'])){
 		switch ($command) {
 		case "hello": 
 			$outputText = "มีอะไรให้หนูรับใช้ค่ะ";
-			break;					
+			break;
 		case "เปิดทีวี":
-			/*
 			if ($mqtt->connect(true, NULL, $username, $password)) {
 			   $mqtt->publish($topic, "LEDON", 0);
 			   //echo "Published message: " . $message;
 			   $mqtt->close();
-			}*/
-			$outputText = "เปิดทีวีให้แล้วจ้า"
+			}
+			$outputText = "เปิดทีวีให้แล้วจ้า";
 			break;
 		case "ปิดทีวี":
-			/*
 			if ($mqtt->connect(true, NULL, $username, $password)) {
 			    $mqtt->publish($topic, "LEDOFF", 0);
 			    //echo "Published message: " . $message;
 			    $mqtt->close();
-			}*/
-			$outputText = "ปิดทีวีให้แล้วจ้า"
+			}
+			$outputText = "ปิดทีวีให้แล้วจ้า";
 			break;			
 		default:
 			$outputText = "demo command: text, location, button, confirm to test message template";	
