@@ -55,7 +55,7 @@ if(isset($res['events']) && !is_null($res['events'])){
  switch($item['message']['type']){
  case 'text':
 		$command = $item['message']['text'];	
-		$command="hello";
+		//$command="hello";
 		switch ($command) {
 		case "hello": 
 			$outputText = "มีอะไรให้หนูรับใช้ค่ะ";
