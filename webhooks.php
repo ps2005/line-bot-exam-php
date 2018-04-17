@@ -31,15 +31,19 @@ if (!is_null($events['events'])) {
 			$outputText = "มีอะไรให้หนูรับใช้ค่ะ";
 			break;
 		case "เปิดทีวี" :
-			$mqtt->publish($topic, "LEDON", 0);
-			//echo "Published message: " . $message;
-			$mqtt->close();				
+			if ($mqtt->connect(true, NULL, $username, $password)) {
+			   $mqtt->publish($topic, "LEDON", 0);
+			   //echo "Published message: " . $message;
+			   $mqtt->close();
+			}				
 			$outputText = "เปิดทีวีให้แล้วจ้า"
 			break;
 		case "ปิดทีวี" :
-	    		$mqtt->publish($topic, "LEDOFF", 0);
-			//echo "Published message: " . $message;
-			$mqtt->close();
+			if ($mqtt->connect(true, NULL, $username, $password)) {
+			    $mqtt->publish($topic, "LEDOFF", 0);
+			    //echo "Published message: " . $message;
+			    $mqtt->close();
+			}
 			$outputText = "ปิดทีวีให้แล้วจ้า"
 			break;			
 		default :
