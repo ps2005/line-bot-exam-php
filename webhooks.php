@@ -56,11 +56,11 @@ if(isset($res['events']) && !is_null($res['events'])){
  case 'text':
 		$command = $item['message']['text'];	
 		switch ($command) {
-		case "hello" : 
+		case 'hello' : 
 			$outputText = "มีอะไรให้หนูรับใช้ค่ะ";
 			break;
 					
-			case "เปิดทีวี" :
+			case 'เปิดทีวี' :
 			if ($mqtt->connect(true, NULL, $username, $password)) {
 			   $mqtt->publish($topic, "LEDON", 0);
 			   //echo "Published message: " . $message;
@@ -68,7 +68,7 @@ if(isset($res['events']) && !is_null($res['events'])){
 			}				
 			$outputText = "เปิดทีวีให้แล้วจ้า"
 			break;
-		case "ปิดทีวี" :
+		case 'ปิดทีวี' :
 			if ($mqtt->connect(true, NULL, $username, $password)) {
 			    $mqtt->publish($topic, "LEDOFF", 0);
 			    //echo "Published message: " . $message;
