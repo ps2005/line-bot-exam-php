@@ -28,12 +28,13 @@ if (!is_null($events['events'])) {
 			$command = $event['message']['text'];	
 			//echo $command;
 			$outputText = $command;
-/*			
+			
 		switch ($command) {
 		case "hello" : 
 			$outputText = "มีอะไรให้หนูรับใช้ค่ะ";
 			break;
-		case "เปิดทีวี" :
+/*
+			case "เปิดทีวี" :
 			if ($mqtt->connect(true, NULL, $username, $password)) {
 			   $mqtt->publish($topic, "LEDON", 0);
 			   //echo "Published message: " . $message;
@@ -49,6 +50,7 @@ if (!is_null($events['events'])) {
 			}
 			$outputText = "ปิดทีวีให้แล้วจ้า"
 			break;			
+*/			
 		default :
 			$outputText = "demo command: text, location, button, confirm to test message template";	
 			break;
