@@ -60,19 +60,21 @@ if(isset($res['events']) && !is_null($res['events'])){
 			$outputText = "มีอะไรให้หนูรับใช้ค่ะ";
 			break;					
 		case "เปิดทีวี":
+			/*
 			if ($mqtt->connect(true, NULL, $username, $password)) {
 			   $mqtt->publish($topic, "LEDON", 0);
 			   //echo "Published message: " . $message;
 			   $mqtt->close();
-			}				
+			}*/
 			$outputText = "เปิดทีวีให้แล้วจ้า"
 			break;
 		case "ปิดทีวี":
+			/*
 			if ($mqtt->connect(true, NULL, $username, $password)) {
 			    $mqtt->publish($topic, "LEDOFF", 0);
 			    //echo "Published message: " . $message;
 			    $mqtt->close();
-			}
+			}*/
 			$outputText = "ปิดทีวีให้แล้วจ้า"
 			break;			
 		default:
