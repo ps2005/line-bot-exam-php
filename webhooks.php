@@ -26,7 +26,9 @@ if (!is_null($events['events'])) {
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
 			//$command = $event['message']['text'];	
 			$command = $event['message']['text'];	
-			echo $command;
+			//echo $command;
+			$outputText = $command;
+/*			
 		switch ($command) {
 		case "hello" : 
 			$outputText = "มีอะไรให้หนูรับใช้ค่ะ";
@@ -51,6 +53,7 @@ if (!is_null($events['events'])) {
 			$outputText = "demo command: text, location, button, confirm to test message template";	
 			break;
 		}
+*/		
 			/*
 			if (preg_match("/hello/", $text)) {
 				$text = "มีอะไรให้หนูรับใช้ค่ะ";
