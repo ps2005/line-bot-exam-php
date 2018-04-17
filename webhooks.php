@@ -24,7 +24,29 @@ if (!is_null($events['events'])) {
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
-			$text = $event['message']['text'];			
+			$command = $event['message']['text'];	
+			
+		switch ($command) {
+		case "hello" : 
+			$outputText = "มีอะไรให้หนูรับใช้ค่ะ";
+			break;
+		case "เปิดทีวี" :
+			$mqtt->publish($topic, "LEDON", 0);
+			//echo "Published message: " . $message;
+			$mqtt->close();				
+			$outputText = "เปิดทีวีให้แล้วจ้า"
+			break;
+		case "ปิดทีวี" :
+	    		$mqtt->publish($topic, "LEDOFF", 0);
+			//echo "Published message: " . $message;
+			$mqtt->close();
+			$outputText = "ปิดทีวีให้แล้วจ้า"
+			break;			
+		default :
+			$outputText = "demo command: text, location, button, confirm to test message template";	
+			break;
+		}
+			/*
 			if (preg_match("/hello/", $text)) {
 				$text = "มีอะไรให้หนูรับใช้ค่ะ";
 			} 
@@ -48,6 +70,7 @@ if (!is_null($events['events'])) {
 			else {
 				$text = "ไม่มีคำสั่งนี้ค่ะ";
 			}
+			*/
 			// Get text sent
 			//$text = $event['source']['userId'];
 			
@@ -57,7 +80,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $text
+				'text' => $outputText
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
