@@ -214,7 +214,7 @@ if (!is_null($events['events'])) {
 	}
 }
 */
-echo "OK2";
+echo "OK";
 
 function posttext($replyToken,$vartext){
 // Build message to reply back
@@ -244,7 +244,7 @@ function getSticker($replyToken){
  return $packet;
 }
 
-function postMessage($token,$packet,$urlReply){
+function postMessage($access_token,$packet,$urlReply){
  $dataEncode = json_encode($packet);
  $headersOption = array('Content-Type: application/json','Authorization: Bearer '.$access_token);
  $ch = curl_init($urlReply);
