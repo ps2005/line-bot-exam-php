@@ -13,11 +13,65 @@ $topic="/IOT";
 
 $mqtt = new bluerhinos\phpMQTT($server, $port, "ClientID".rand());
 $access_token = 'deQ0R28QTXVYrTOwfnh+BOF0FvGIxSHVG3k4fIe2cLld9WZVs0UvUqdk0ZEC54PSjxjQRthwmhRqbx9hwicXEDn8itwyyAlMkGmogPmYHJsL1N6jGou+oMrlMXikTzHKDU3c7F+gGN1+tAzbi6zK1AdB04t89/1O/w1cDnyilFU=';
+$urlReply = 'https://api.line.me/v2/bot/message/reply';
+
+
+/* example json
+{“events”:[{“type”:”message”,
+	    ”replyToken”:”ไม่บอก”,
+	    ”source”:{“userId”:”ไม่บอก”,
+                      ”type”:”user”
+		     },
+	    ”timestamp”:1477132643802,
+	    ”message”:{“type”:”text”,
+		       ”id”:”5094630491076",
+		       ”text”:”ว่าไงท่าน”}
+           } 
+          ]
+}
+*/
 
 // Get POST body content
 $content = file_get_contents('php://input');
 // Parse JSON
-$events = json_decode($content, true);
+//$events = json_decode($content, true);
+
+$res = json_decode($content, true);
+if(isset($res[‘events’]) && !is_null($res[‘events’])){
+ foreach($res[‘events’] as $item){
+ if($item[‘type’] == ‘message’){
+ switch($item[‘message’][‘type’]){
+ case ‘text’:
+   $packet = posttext($item[‘replyToken’],$item[‘message’][‘type’]);
+   postMessage($access_token,$packet,$urlReply);
+break;
+case ‘image’:
+
+
+break;
+ case ‘video’:
+ 
+ break;
+ case ‘audio’:
+ 
+ break;
+ case ‘location’:
+
+break;
+ case ‘sticker’:
+ $packet = getSticker($item[‘replyToken’]);
+ postMessage($token,$packet,$urlReply);
+
+ break;
+
+}
+	 
+ }
+ }
+}
+
+
+/*	 
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
 	// Loop through each event
@@ -50,7 +104,7 @@ if (!is_null($events['events'])) {
 			}
 			$outputText = "ปิดทีวีให้แล้วจ้า"
 			break;			
-*/			
+			
 		default :
 			$outputText = "demo command: text, location, button, confirm to test message template";	
 			break;
@@ -81,6 +135,8 @@ if (!is_null($events['events'])) {
 				$text = "ไม่มีคำสั่งนี้ค่ะ";
 			}
 			*/
+
+/*
 			// Get text sent
 			//$text = $event['source']['userId'];
 			
@@ -115,4 +171,46 @@ if (!is_null($events['events'])) {
 		}
 	}
 }
+*/
 echo "OK";
+
+function posttext($replyToken,$vartext){
+// Build message to reply back
+$messages = [
+	'type' => 'text',
+	'text' => $vartext
+];
+
+ $packet = array(
+ ‘replyToken’ => $replyToken,
+ ‘messages’ => array($message),
+ );
+ return $packet;	
+	
+}
+	
+function getSticker($replyToken){
+ $sticker = array(
+ ‘type’ => ‘sticker’,
+ ‘packageId’ => ‘4’,
+ ‘stickerId’ => ‘300’
+ );
+ $packet = array(
+ ‘replyToken’ => $replyToken,
+ ‘messages’ => array($sticker),
+ );
+ return $packet;
+}
+
+function postMessage($token,$packet,$urlReply){
+ $dataEncode = json_encode($packet);
+ $headersOption = array(‘Content-Type: application/json’,’Authorization: Bearer ‘.$access_token);
+ $ch = curl_init($urlReply);
+ curl_setopt($ch,CURLOPT_CUSTOMREQUEST,’POST’);
+ curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+ curl_setopt($ch,CURLOPT_POSTFIELDS,$dataEncode);
+ curl_setopt($ch,CURLOPT_HTTPHEADER,$headersOption);
+ curl_setopt($ch,CURLOPT_FOLLOWLOCATION,1);
+ $result = curl_exec($ch);
+ curl_close($ch);
+}
