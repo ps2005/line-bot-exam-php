@@ -76,7 +76,7 @@ if(isset($res['events']) && !is_null($res['events'])){
 			$outputText = "ปิดทีวีให้แล้วจ้า";
 			break;			
 		default:
-			$outputText = "demo command: text, location, button, confirm to test message template";	
+			$outputText = "demo command: text \n, location \n, button \n, confirm to test message template\n";	
 			break;
 		}
    $packet = posttext($item['replyToken'],$outputText);		 
