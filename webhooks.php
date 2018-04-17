@@ -54,6 +54,7 @@ if(isset($res['events']) && !is_null($res['events'])){
  if($item['type'] == 'message'){
  switch($item['message']['type']){
  case 'text':
+		 /*
 			// Get replyToken
 			$replyToken = $item['replyToken'];
 
@@ -82,9 +83,9 @@ if(isset($res['events']) && !is_null($res['events'])){
 			curl_close($ch);
 
 			echo $result . "\r\n";		 
-		 
- //  $packet = posttext($item['replyToken'],$item['message']['text']);
- //  postMessage($access_token,$packet,$urlReply);
+		 */
+   $packet = posttext($item['replyToken'],$item['message']['text']);
+   postMessage($access_token,$packet,$urlReply);
 break;
 case 'image':
 
@@ -213,7 +214,7 @@ if (!is_null($events['events'])) {
 	}
 }
 */
-echo "OK";
+echo "OK2";
 
 function posttext($replyToken,$vartext){
 // Build message to reply back
@@ -254,4 +255,6 @@ function postMessage($token,$packet,$urlReply){
  curl_setopt($ch,CURLOPT_FOLLOWLOCATION,1);
  $result = curl_exec($ch);
  curl_close($ch);
+ //echo $result . "\r\n";
+ return $result;
 }
