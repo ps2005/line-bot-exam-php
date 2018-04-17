@@ -24,8 +24,9 @@ if (!is_null($events['events'])) {
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+			//$command = $event['message']['text'];	
 			$command = $event['message']['text'];	
-			
+			echo $command;
 		switch ($command) {
 		case "hello" : 
 			$outputText = "มีอะไรให้หนูรับใช้ค่ะ";
