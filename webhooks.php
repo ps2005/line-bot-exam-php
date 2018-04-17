@@ -55,13 +55,11 @@ if(isset($res['events']) && !is_null($res['events'])){
  switch($item['message']['type']){
  case 'text':
 		$command = $item['message']['text'];	
-		//$command="hello";
 		switch ($command) {
 		case "hello": 
 			$outputText = "มีอะไรให้หนูรับใช้ค่ะ";
 			break;					
-/*
-			case "เปิดทีวี":
+		case "เปิดทีวี":
 			if ($mqtt->connect(true, NULL, $username, $password)) {
 			   $mqtt->publish($topic, "LEDON", 0);
 			   //echo "Published message: " . $message;
@@ -77,7 +75,6 @@ if(isset($res['events']) && !is_null($res['events'])){
 			}
 			$outputText = "ปิดทีวีให้แล้วจ้า"
 			break;			
-*/			
 		default:
 			$outputText = "demo command: text, location, button, confirm to test message template";	
 			break;
@@ -213,7 +210,7 @@ if (!is_null($events['events'])) {
 	}
 }
 */
-echo "OK3";
+echo "OK";
 
 function posttext($replyToken,$vartext){
 // Build message to reply back
